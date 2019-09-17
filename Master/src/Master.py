@@ -29,6 +29,9 @@ class MasterController:
         # Create the Show runner that will reach each script and run the show.
         self.showRunner = ShowRunner.ShowRunner(self.powerBoxList, self.player, self.cfg.getMusicDir())
 
+        # The playlist stores the high level of song/scripts and other generic light control commands.
+        self.playlist = []
+
         return
 
     def allLightsOn(self):
@@ -39,6 +42,21 @@ class MasterController:
     def allLightsOff(self):
         for box in self.powerBoxList:
             self.powerBoxList[box].sendCmd('*', 'OFF')
+        return
+
+    def readPlaylist(self):
+        print("Reading playlist: " + self.cfg.getMusicDir() + '/playlist.cfg')
+        file = open(self.cfg.getMusicDir() + '/playlist.cfg', "r")
+        lines = []
+        for line in file:
+#            print("Line: " + line)
+            if (line != "\n") and (not line.startswith('#')):
+                self.playlist.append(line.strip('\n'))
+
+        print("Playlist:")
+        for command in self.playlist:
+            print("  " + command)
+
         return
 
     def Main(self):
@@ -62,10 +80,23 @@ class MasterController:
 #        time.sleep(10)
 #        self.player.stop()
 
-        self.allLightsOn()
-        self.allLightsOff()
-        self.showRunner.readScript("carol-of-the-bells")
-        self.showRunner.runScript()
+        self.readPlaylist()
+
+        for iter in self.playlist:
+            tokens = iter.split(" ")
+            if tokens[0] == "ALL_ON":
+                print("Turning all lights on for " + str(float(tokens[1])*60) + " seconds.")
+                self.allLightsOn()
+                time.sleep(float(tokens[1])*60)
+            else:
+                print ("Running script: " + tokens[0])
+                self.showRunner.readScript(tokens[0])
+                self.showRunner.runScript()
+
+#        self.allLightsOn()
+#        self.allLightsOff()
+#        self.showRunner.readScript("carol-of-the-bells")
+#        self.showRunner.runScript()
 
 
 if __name__== '__main__':

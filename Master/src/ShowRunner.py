@@ -33,7 +33,7 @@ class ShowRunner:
         self.currentSong = lines[0]
 
         for iter in range(1, len(lines)):
-            print(lines[iter])
+#            print(lines[iter])
             tokens = lines[iter].split(' ')
             newAction = Action(tokens[0], tokens[1], tokens[2], tokens[3])
 #            print("Adding new action...")
@@ -53,15 +53,19 @@ class ShowRunner:
         self.player.playSong(self.currentSong)
 
         # Set current time to zero. This will serve as the timer for running all of the actions.
-        startTime = time.clock()
+        startTime = time.clock_gettime(time.CLOCK_REALTIME)
 
         # Loop through the actions and run them per the scripted time.
         for action in self.actionList:
             actionTime = float(action.time) + startTime
-            currentTime = time.clock()
-            time.sleep(actionTime - currentTime)
+            currentTime = time.clock_gettime(time.CLOCK_REALTIME)
+            if (actionTime > currentTime):
+                time.sleep(actionTime - currentTime)
 
             self.executeAction(action.box, action.channel, action.action)
+
+        self.player.stop()
+
         return
 
     def executeAction(self, boxID, channelID, action):
@@ -76,7 +80,7 @@ class ShowRunner:
                 print(e)
         return
 
-    def turnLightOff(self, boxID, channelID):
-        #TODO
-        return
+#    def turnLightOff(self, boxID, channelID):
+#        #TODO
+#        return
 

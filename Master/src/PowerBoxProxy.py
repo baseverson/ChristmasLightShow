@@ -50,5 +50,5 @@ class PowerBoxProxy:
 
         self.mySocket.send(msg.encode())
         ack = self.mySocket.recv(1024).decode()
-        print(str(time.clock()) + "Sent command (" + msg + ") to " + self.address + ":" + str(self.port))
+        print(str(time.clock_gettime(time.CLOCK_REALTIME)) + " Sent command (" + msg + ") to " + self.address + ":" + str(self.port))
 

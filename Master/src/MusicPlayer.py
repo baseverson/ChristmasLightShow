@@ -9,7 +9,7 @@ class MusicPlayer:
         return
 
     def playSong(self, filename):
-        print("Song starting")
+        print("Song starting: " + filename)
         pygame.mixer.music.load(self.musicDir + "/" + filename)
         pygame.mixer.music.set_volume(1.0)
         pygame.mixer.music.play()
