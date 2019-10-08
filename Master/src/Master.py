@@ -60,25 +60,6 @@ class MasterController:
         return
 
     def Main(self):
-        #TODO
-
-#        self.powerBoxList[1].sendCmd(1,"ON")
-#        self.powerBoxList[2].sendCmd(5,"OFF")
-#        self.powerBoxList[1].sendCmd(8,"ON")
-#        self.powerBoxList[2].sendCmd(8,"ON")
-#        self.powerBoxList[1].sendCmd(8,"ON")
-#        self.powerBoxList[1].sendCmd(8,"ON")
-#        self.powerBoxList[1].sendCmd(8,"ON")
-#        self.powerBoxList[1].sendCmd(8,"ON")
-#        self.powerBoxList[1].sendCmd(8,"ON")
-#        self.powerBoxList[1].sendCmd(8,"ON")
-#        self.powerBoxList[1].sendCmd(8,"ON")
-
-#        self.powerBoxList[2].sendCmd(16,"OFF")
-
-#        self.player.playSong("carol-of-the-bells.mp3")
-#        time.sleep(10)
-#        self.player.stop()
 
         self.readPlaylist()
 
@@ -92,11 +73,6 @@ class MasterController:
                 print ("Running script: " + tokens[0])
                 self.showRunner.readScript(tokens[0])
                 self.showRunner.runScript()
-
-#        self.allLightsOn()
-#        self.allLightsOff()
-#        self.showRunner.readScript("carol-of-the-bells")
-#        self.showRunner.runScript()
 
 
 if __name__== '__main__':
