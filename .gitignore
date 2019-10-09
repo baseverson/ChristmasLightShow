@@ -12,3 +12,5 @@
 .idea/inspectionProfiles/profiles_settings.xml
 
 Master/src/__pycache__/
+
+PowerBox/src/__pycache__/
